@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -31,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -42,7 +43,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Richiedo tutti i dati
+        $form_data = $request->all();
+        // Validazione
+        $request->validate($this->getValidationRules());
+        // Salvo nel db i dati e creo una nuovo riga
+        $new_post = new Post();
+        $new_post->fill($form_data);
+        $slug_to_save = Str::slug($new_post->title, '-');
+        $new_post->slug = $slug_to_save;
+        
+        $new_post->save();
+        return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
     /**
@@ -94,5 +106,13 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function getValidationRules(){
+        return [
+            'title' => 'required|max:300',
+            'content' => 'required|max:70000',
+            
+        ];
     }
 }
