@@ -51,9 +51,23 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($form_data);
         $slug_to_save = Str::slug($new_post->title, '-');
-        $new_post->slug = $slug_to_save;
         
+        // Controllo nel db se c'è già un slug esistente a quallo generato
+        $exsisting_slug = Post::where('slug', '=', $slug_to_save)->first();
+        $slug_base = $slug_to_save;
+
+        // Finchè troverà uno slug già esistente appenderò nel finale il count 
+        // incremnetandolo di 1 ad ogni nuovo duplicato creato come nuovo slug della singola card
+        $count = 1;
+        while($exsisting_slug == true){
+            $slug_to_save = $slug_base . '-' . $count;
+            $exsisting_slug = Post::where('slug', '=', $slug_to_save)->first();
+            $count++;
+        };
+
+        $new_post->slug = $slug_to_save;
         $new_post->save();
+
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
