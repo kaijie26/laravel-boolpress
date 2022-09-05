@@ -1,12 +1,3 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-    <div id="root">
-        
-    </div>
-    
-@endsection --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
