@@ -26,7 +26,6 @@
             <textarea class="form-control" id="content" name="content" rows="8">{{ old('content') }}</textarea>
         </div>  
     
-          {{-- <input type="button" value="Salva"> --}}
           <button>Salva</button>
     </form>
 @endsection

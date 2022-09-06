@@ -27,8 +27,8 @@
             <textarea class="form-control" id="content" name="content" rows="8">{{ old('content', $post->content) }}</textarea>
         </div>  
     
-          {{-- <input type="button" value="Salva"> --}}
-          <button>Salva</button>
+          
+        <button class="btn btn-primary" >Salva Modifica</button>
     </form>
 
 @endsection
