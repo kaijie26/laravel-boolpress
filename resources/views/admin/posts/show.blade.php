@@ -8,6 +8,7 @@
         <div>Cretato il: {{$post->created_at->format(' j F Y')}}</div>
         <div>Aggiornato il: {{$post->updated_at->format('j F Y')}}</div>
         <div>Slug: {{$post->slug}}</div>
+        <div>Categoria: {{$post->category ? $post->category->name : 'Nessuna'}}</div>
     </div>
     <br>
     {{-- Contenuto --}}
