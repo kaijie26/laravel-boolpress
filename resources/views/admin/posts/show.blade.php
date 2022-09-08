@@ -9,6 +9,16 @@
         <div>Aggiornato il: {{$post->updated_at->format('j F Y')}}</div>
         <div>Slug: {{$post->slug}}</div>
         <div>Categoria: {{$post->category ? $post->category->name : 'Nessuna'}}</div>
+        <div>Tags:
+            @forelse ($post->tags as $tag)
+                {{$tag->name}}{{!$loop->last ? ',' : ''}}
+                
+            @empty
+                Nessuna 
+            @endforelse
+            
+        </div>  
+        
     </div>
     <br>
     {{-- Contenuto --}}
