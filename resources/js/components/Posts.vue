@@ -18,12 +18,16 @@
 
             <nav>
                 <ul class="pagination mt-3">
+                    <!-- Previous-Button -->
                     <li class="page-item" :class="{'disabled' : currentPagination == 1 }">
                         <a @click="getPosts(currentPagination -1)" class="page-link" href="#">Previous</a>
                     </li>
-                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+
+                    <li v-for="paginationNumb in lastPagination" :key="paginationNumb" :class="{'active' : paginationNumb == currentPagination }" class="page-item">
+                        <a @click="getPosts(paginationNumb)" class="page-link" href="#">{{paginationNumb}}</a>
+                    </li>
+
+                    <!-- Next-Button -->
                     <li class="page-item" :class="{'disabled' : currentPagination == lastPagination }" >
                         <a @click="getPosts(currentPagination +1)" class="page-link" href="#">Next</a>
                     </li>

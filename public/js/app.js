@@ -2016,7 +2016,25 @@ var render = function render() {
         return _vm.getPosts(_vm.currentPagination - 1);
       }
     }
-  }, [_vm._v("Previous")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.lastPagination, function (paginationNumb) {
+    return _c("li", {
+      key: paginationNumb,
+      staticClass: "page-item",
+      "class": {
+        active: paginationNumb == _vm.currentPagination
+      }
+    }, [_c("a", {
+      staticClass: "page-link",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.getPosts(paginationNumb);
+        }
+      }
+    }, [_vm._v(_vm._s(paginationNumb))])]);
+  }), _vm._v(" "), _c("li", {
     staticClass: "page-item",
     "class": {
       disabled: _vm.currentPagination == _vm.lastPagination
@@ -2031,7 +2049,7 @@ var render = function render() {
         return _vm.getPosts(_vm.currentPagination + 1);
       }
     }
-  }, [_vm._v("Next")])])])])])]);
+  }, [_vm._v("Next")])])], 2)])])]);
 };
 
 var staticRenderFns = [];
