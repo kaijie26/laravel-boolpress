@@ -1,9 +1,19 @@
 <template>
     <div>
         <a href="/admin">admin privata</a>
-        <h1>
-            sono stampato da Vuejs
-        </h1>
+        <Posts />
 
     </div>
 </template>
+
+<script>
+
+import Posts from "../components/Posts.vue";
+
+export default {
+    name: 'App',
+    components: {
+        Posts,
+    }
+}
+</script>
