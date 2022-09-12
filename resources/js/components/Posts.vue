@@ -16,6 +16,20 @@
 
             </div>
 
+            <nav>
+                <ul class="pagination mt-3">
+                    <li class="page-item" :class="{'disabled' : currentPagination == 1 }">
+                        <a @click="getPosts(currentPagination -1)" class="page-link" href="#">Previous</a>
+                    </li>
+                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                    <li class="page-item" :class="{'disabled' : currentPagination == lastPagination }" >
+                        <a @click="getPosts(currentPagination +1)" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
         
     </div>
@@ -28,7 +42,9 @@ export default {
 
     data(){
         return{
-            posts:[]
+            posts:[],
+            currentPagination: 1,
+            lastPagination: null
 
 
         }
@@ -45,19 +61,28 @@ export default {
 
         },
 
-        getPosts(){
-            axios.get('/api/posts')
+        getPosts(pageNumber){
+            axios.get('/api/posts', {
+                params: {
+                    page: pageNumber,
+
+                }
+            })
             .then((response)=>{
-                this.posts = response.data.results;
+                this.posts = response.data.results.data;
+                this.currentPagination = response.data.results.current_page
+                this.lastPagination = response.data.results.last_page
                 
             })
 
         }
 
+
+
     }, 
 
     mounted(){
-        this.getPosts();
+        this.getPosts(1);
         
 
     }
