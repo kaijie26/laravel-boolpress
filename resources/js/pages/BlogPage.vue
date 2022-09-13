@@ -1,9 +1,24 @@
 <template>
-    <h2>sono il blogpage</h2>
+    <div>
+        <Header />
+        <main>
+            <Posts />
+
+        </main>
+
+    </div>
+
 </template>
 
 <script>
+import Posts from "../components/Posts.vue";
+import Header from "../components/Header.vue";
 export default {
-    name: 'BlogPage'
+    name: 'BlogPage',
+    components: {
+        Posts,
+        Header,
+
+    }
 }
 </script>

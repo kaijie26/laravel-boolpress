@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <h1>Lista dei Posts</h1>
+            <h2>Lista dei Posts</h2>
             <div class="row row-cols-3">
                 <div v-for="post in posts" :key="post.id" class="col mt-3">
                     <div class="card">

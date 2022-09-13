@@ -6,9 +6,10 @@ Vue.use(VueRouter)
 import HomePage from "./pages/HomePage.vue";
 import AboutPage from "./pages/AboutPage.vue";
 import BlogPage from "./pages/BlogPage.vue";
+import ErrorNotFound from "./pages/ErrorNotFound.vue";
 
 const router = new VueRouter({
-    mode:'history',
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -27,7 +28,14 @@ const router = new VueRouter({
             component: BlogPage,
             name: 'blog'
 
+        },
+        {
+            path: '/*',
+            component: ErrorNotFound,
+            name: 'error'
+
         }
+
     ]
   })
 

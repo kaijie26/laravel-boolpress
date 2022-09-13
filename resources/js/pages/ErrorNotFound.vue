@@ -1,17 +1,18 @@
 <template>
     <div>
         <Header />
-        <h2>sono la aboutpage</h2>
-
+        <h5>Errore, pagina non trovata.</h5>
     </div>
+    
 </template>
 
 <script>
 import Header from "../components/Header.vue";
 export default {
-    name: 'AbouPage',
+    name:'ErrorNotFound',
     components: {
         Header
     }
+    
 }
 </script>
