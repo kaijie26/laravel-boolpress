@@ -22,7 +22,8 @@
                     <li class="page-item" :class="{'disabled' : currentPagination == 1 }">
                         <a @click="getPosts(currentPagination -1)" class="page-link" href="#">Previous</a>
                     </li>
-
+                    
+                    <!-- Page Number -->
                     <li v-for="paginationNumb in lastPagination" :key="paginationNumb" :class="{'active' : paginationNumb == currentPagination }" class="page-item">
                         <a @click="getPosts(paginationNumb)" class="page-link" href="#">{{paginationNumb}}</a>
                     </li>
