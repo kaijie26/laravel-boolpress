@@ -18,4 +18,5 @@ class PostController extends Controller
         return response()->json($data);
        
     }
+
 }

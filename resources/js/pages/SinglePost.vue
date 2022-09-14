@@ -1,14 +1,12 @@
 <template>
     <div>
-        <h2>sono la aboutpage</h2>
+        <h2>sono la single post</h2>
 
     </div>
 </template>
 
 <script>
-
 export default {
-    name: 'AbouPage',
-    
+    name: 'SinglePost'
 }
 </script>
