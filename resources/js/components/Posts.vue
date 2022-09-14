@@ -8,6 +8,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ post.title }}</h5>
                             <p class="card-text">{{ troncateText(post.content) }}</p>
+                            <router-link class="btn btn-primary" :to="{ name: 'single-post', params: {slug: post.slug} }">Maggiori info</router-link>
                             
                         </div>
                     </div>
@@ -20,17 +21,17 @@
                 <ul class="pagination mt-3">
                     <!-- Previous-Button -->
                     <li class="page-item" :class="{'disabled' : currentPagination == 1 }">
-                        <a @click="getPosts(currentPagination -1)" class="page-link" href="#">Previous</a>
+                        <a @click.prevent="getPosts(currentPagination -1)" class="page-link" href="#">Previous</a>
                     </li>
                     
                     <!-- Page Number -->
                     <li v-for="paginationNumb in lastPagination" :key="paginationNumb" :class="{'active' : paginationNumb == currentPagination }" class="page-item">
-                        <a @click="getPosts(paginationNumb)" class="page-link" href="#">{{paginationNumb}}</a>
+                        <a @click.prevent="getPosts(paginationNumb)" class="page-link" href="#">{{paginationNumb}}</a>
                     </li>
 
                     <!-- Next-Button -->
                     <li class="page-item" :class="{'disabled' : currentPagination == lastPagination }" >
-                        <a @click="getPosts(currentPagination +1)" class="page-link" href="#">Next</a>
+                        <a @click.prevent="getPosts(currentPagination +1)" class="page-link" href="#">Next</a>
                     </li>
                 </ul>
             </nav>

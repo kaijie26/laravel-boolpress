@@ -2051,7 +2051,24 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'SinglePost'
+  name: 'SinglePost',
+  data: function data() {
+    return {
+      post: []
+    };
+  },
+  methods: {
+    getSinglePost: function getSinglePost() {
+      var _this = this;
+
+      axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
+        _this.post = response.data.results;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getSinglePost();
+  }
 });
 
 /***/ }),
@@ -2169,7 +2186,17 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v(_vm._s(_vm.troncateText(post.content)))])])])]);
+    }, [_vm._v(_vm._s(_vm.troncateText(post.content)))]), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-primary",
+      attrs: {
+        to: {
+          name: "single-post",
+          params: {
+            slug: post.slug
+          }
+        }
+      }
+    }, [_vm._v("Maggiori info")])], 1)])]);
   }), 0), _vm._v(" "), _c("nav", [_c("ul", {
     staticClass: "pagination mt-3"
   }, [_c("li", {
@@ -2184,6 +2211,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
+        $event.preventDefault();
         return _vm.getPosts(_vm.currentPagination - 1);
       }
     }
@@ -2201,6 +2229,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
+          $event.preventDefault();
           return _vm.getPosts(paginationNumb);
         }
       }
@@ -2217,6 +2246,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
+        $event.preventDefault();
         return _vm.getPosts(_vm.currentPagination + 1);
       }
     }
@@ -2355,15 +2385,19 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", {
+    staticClass: "container"
+  }, [_vm.post ? _c("div", [_c("h2", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm._l(_vm.post.tags, function (tag) {
+    return _c("div", {
+      key: tag.id,
+      staticClass: "d-inline-flex"
+    }, [_c("span", {
+      staticClass: "badge bg-success text-white mr-2"
+    }, [_vm._v(_vm._s(tag.name))])]);
+  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _vm.post.category ? _c("div", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))]) : _vm._e()], 2) : _vm._e()]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h2", [_vm._v("sono la single post")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
