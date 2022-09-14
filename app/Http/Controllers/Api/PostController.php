@@ -19,4 +19,24 @@ class PostController extends Controller
        
     }
 
+    public function show($slug){
+        $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
+
+        if($post){
+            $data = [
+                'success' => true,
+                'results' => $post,
+            ];
+
+        }else{
+            $data = [
+                'success' => false,
+                
+            ];
+
+        }
+
+        return response()->json($data);
+    }
+
 }
