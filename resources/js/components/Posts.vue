@@ -2,21 +2,16 @@
     <div>
         <div class="container">
             <h2>Lista dei Posts</h2>
+            <!-- Posts -->
             <div class="row row-cols-3">
-                <div v-for="post in posts" :key="post.id" class="col mt-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ troncateText(post.content) }}</p>
-                            <router-link class="btn btn-primary" :to="{ name: 'single-post', params: {slug: post.slug} }">Maggiori info</router-link>
-                            
-                        </div>
-                    </div>
+                <div v-for="singlePost in posts" :key="singlePost.id" class="col mt-3">
+                   <PostDetails :post="singlePost" />
 
                 </div>
 
             </div>
 
+            <!--Nav-Pagination  -->
             <nav>
                 <ul class="pagination mt-3">
                     <!-- Previous-Button -->
@@ -43,8 +38,12 @@
 </template>
 
 <script>
+import PostDetails from "./PostDetails.vue";
 export default {
     name: 'Posts',
+    components: {
+        PostDetails,
+    },
 
     data(){
         return{
@@ -57,16 +56,6 @@ export default {
     },
 
     methods: {
-        troncateText(text){
-            if(text.length > 80){
-                return text.slice(0, 80) + '...';
-
-            };
-
-            return text;
-
-        },
-
         getPosts(pageNumber){
             axios.get('/api/posts', {
                 params: {
