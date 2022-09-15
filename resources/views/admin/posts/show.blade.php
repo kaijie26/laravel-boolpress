@@ -18,7 +18,11 @@
             @endforelse
             
         </div>  
-        
+        @if($post->cover)
+            <img class="w-25" src="{{asset('storage/' . $post->cover)}}" alt="{{ $post->title }}">
+
+        @endif
+
     </div>
     <br>
     {{-- Contenuto --}}
