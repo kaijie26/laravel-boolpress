@@ -14,6 +14,7 @@
             <div v-if="post.category">Categoria: {{post.category.name}}</div>
 
         </div>
+        <div v-else >Loading...</div>
 
     </div>
 </template>
@@ -23,7 +24,7 @@ export default {
     name: 'SinglePost',
     data(){
         return{
-            post: [],
+            post: null,
 
         }
     },
