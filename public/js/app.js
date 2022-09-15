@@ -2079,7 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'SinglePost',
   data: function data() {
     return {
-      post: []
+      post: null
     };
   },
   methods: {
@@ -2087,7 +2087,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
-        _this.post = response.data.results;
+        if (response.data.success) {
+          _this.post = response.data.results;
+        } else {
+          _this.$router.push({
+            name: 'error'
+          });
+        }
+
+        ;
       });
     }
   },
@@ -2447,7 +2455,7 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "badge bg-success text-white mr-2"
     }, [_vm._v(_vm._s(tag.name))])]);
-  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _vm.post.category ? _c("div", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))]) : _vm._e()], 2) : _vm._e()]);
+  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _vm.post.category ? _c("div", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))]) : _vm._e()], 2) : _c("div", [_vm._v("Loading...")])]);
 };
 
 var staticRenderFns = [];

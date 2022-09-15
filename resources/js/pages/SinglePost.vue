@@ -33,9 +33,14 @@ export default {
         getSinglePost(){
             axios.get('/api/posts/' + this.$route.params.slug)
             .then((response) => {
-                this.post = response.data.results;
 
-            });
+                if (response.data.success) {
+                    this.post = response.data.results;
+                }else{
+                    this.$router.push({name: 'error'});
+                };
+
+        })
 
         }
 
