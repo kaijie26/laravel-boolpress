@@ -12,6 +12,9 @@
                 <div class="card mt-3">
                     {{-- Card-Content --}}
                     <div class="card-body">
+                        @if($post->cover)
+                            <img class="w-100" src="{{asset('storage/' . $post->cover)}}" alt="{{ $post->title }}">
+                        @endif
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">Mostra di più</a>
                     </div>

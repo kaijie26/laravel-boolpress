@@ -2,6 +2,8 @@
     <div class="container">
         <!-- Single-Post -->
         <div v-if="post">
+            <!-- Img -->
+            <img v-if="post.cover" class="w-25" :src="post.cover" :alt="post.title">
             <!-- Title -->
             <h2>{{post.title}}</h2>
             <!-- Tags -->

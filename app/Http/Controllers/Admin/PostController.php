@@ -54,13 +54,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Richiedo tutti i dati
-        $form_data = $request->all();
         // Validazione
         $request->validate($this->getValidationRules());
 
-         // Cover
-         if(isset($form_data['cover'])){
+        // Richiedo tutti i dati
+        $form_data = $request->all();
+
+        // Cover
+        if(isset($form_data['cover'])){
             $img_path = Storage::put('posts-covers', $form_data['cover']);
             $form_data['cover'] = $img_path;
             
@@ -138,9 +139,11 @@ class PostController extends Controller
         $request->validate($this->getValidationRules());
 
         $form_data = $request->all();
+        
 
         $post_to_update = Post::findOrFail($id);
 
+        // Slug
         if($form_data['title'] !== $post_to_update->title){
 
             $form_data['slug'] = $this->getFreeSlug($form_data['title']);
@@ -150,8 +153,22 @@ class PostController extends Controller
 
         }
 
+        // Cover
+        if(isset($form_data['cover'])){
+
+            if($post_to_update->cover){
+                Storage::put('posts-covers', $form_data['cover']);
+
+            }
+
+            $img_path = Storage::put('posts-covers', $form_data['cover']);
+            $form_data['cover'] = $img_path;
+            
+        }
+
         $post_to_update->update($form_data);
 
+        // Tags
         if(isset($form_data['tags'])){
             $post_to_update->tags()->sync($form_data['tags']);
 
@@ -172,9 +189,15 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
-        $post_to_delete->delete();
+        // Cancello il post con l'immagine solo se è esiste
+        if($post_to_delete->cover){
+            Storage::delete($post_to_delete->cover);
+
+        }
+        
         // Cancello con il sync il post selezionato
         $post_to_delete->tags()->sync([]);
+        $post_to_delete->delete();
 
         return redirect()->route('admin.posts.index');
     }
@@ -204,7 +227,7 @@ class PostController extends Controller
             'content' => 'required|max:70000',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id', 
-            'cover' => 'image|max:1024|nullable'
+            'cover' => 'nullable|file|mimes:jpeg,bmp,png,svg,jpg|max:1024',
             
         ];
     }
