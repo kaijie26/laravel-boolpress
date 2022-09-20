@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPostAdminEmail;
 
 class PostController extends Controller
 {
@@ -80,6 +82,9 @@ class PostController extends Controller
             $new_post->tags()->sync($form_data['tags']);
 
         }
+
+        // Invio la email
+        Mail::to('admin@boolpress.it')->send(new NewPostAdminEmail($new_post));
 
        
         
@@ -194,7 +199,7 @@ class PostController extends Controller
             Storage::delete($post_to_delete->cover);
 
         }
-        
+
         // Cancello con il sync il post selezionato
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
