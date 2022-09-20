@@ -40,6 +40,10 @@ export default {
                 {
                     routeName: '/blog',
                     labelName: 'Blog'
+                },
+                {
+                    routeName: '/contact',
+                    labelName: 'Contact us'
                 }
 
             ]
